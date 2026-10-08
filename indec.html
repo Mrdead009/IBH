@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial Pioneers — Entrepreneur Journeys</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+:root{
+  --paper:#e9dfc9;
+  --ink:#171512;
+  --muted:#9d927f;
+  --gold:#c99b52;
+  --dark:#080807;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#080807;color:#eee;font-family:Inter,sans-serif;overflow-x:hidden}
+
+/* Background image is OPTIONAL. If images/industrial-bg.jpg is missing, page stays dark. */
+body:before{
+  content:"";position:fixed;inset:0;z-index:-5;
+  background:linear-gradient(rgba(0,0,0,.48),rgba(0,0,0,.82)),url("images/industrial-bg.jpg") center/cover no-repeat;
+  transform:scale(1.08);animation:bgMove 18s ease-in-out infinite alternate;
+}
+body:after{
+  content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg width='160' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+@keyframes bgMove{
+  from{transform:scale(1.08) translate3d(-1%,0,0)}
+  to{transform:scale(1.15) translate3d(1%,-1%,0)}
+}
+
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:80px 24px;position:relative}
+.hero-inner{max-width:1050px}
+.eyebrow{color:var(--gold);letter-spacing:.35em;text-transform:uppercase;font-size:12px;margin-bottom:24px}
+.hero h1{font-family:Cinzel,serif;font-size:clamp(48px,9vw,118px);line-height:.92;letter-spacing:-.04em;text-transform:uppercase;text-shadow:0 8px 40px #000}
+.hero h1 span{display:block;color:var(--paper)}
+.hero p{max-width:720px;margin:34px auto 0;color:#c8c0b2;line-height:1.8;font-size:15px}
+.scroll-cue{margin-top:55px;display:inline-flex;flex-direction:column;gap:10px;color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+.scroll-cue i{height:55px;width:1px;background:var(--gold);margin:auto;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:.25;transform:scaleY(.65)}}
+
+.timeline-nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(16px);background:rgba(8,8,7,.84);border-bottom:1px solid rgba(201,155,82,.22);padding:12px 18px;overflow-x:auto;white-space:nowrap}
+.timeline-nav-inner{display:flex;justify-content:flex-start;gap:8px;min-width:max-content;max-width:1400px;margin:auto}
+.timeline-nav button{border:1px solid transparent;background:transparent;color:#877f72;padding:9px 12px;border-radius:999px;cursor:pointer;font-size:11px;transition:.25s}
+.timeline-nav button:hover,.timeline-nav button.active{color:var(--paper);border-color:rgba(201,155,82,.55);background:rgba(201,155,82,.1)}
+.dot{display:inline-block;width:5px;height:5px;background:currentColor;border-radius:50%;vertical-align:middle;margin-right:6px}
+
+/* FIX: overflow:hidden breaks position:sticky on the portrait. "clip" hides the big year text but keeps sticky working. */
+.chapter{min-height:100vh;display:grid;place-items:center;padding:120px 7vw;position:relative;border-bottom:1px solid rgba(255,255,255,.06);overflow:clip;scroll-margin-top:50px}
+.chapter:before{content:attr(data-year);position:absolute;right:-2vw;top:8%;font-family:Cinzel,serif;font-size:clamp(120px,24vw,340px);color:rgba(255,255,255,.025);font-weight:800;pointer-events:none}
+.chapter-inner{width:min(1180px,100%);display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(40px,7vw,110px);align-items:start}
+.chapter:nth-child(even) .chapter-inner{direction:rtl}
+.chapter:nth-child(even) .chapter-copy,
+.chapter:nth-child(even) .portrait-wrap{direction:ltr}
+
+.portrait-wrap{position:sticky;top:120px;perspective:1000px}
+.portrait{
+  width:min(470px,100%);aspect-ratio:4/5;object-fit:cover;object-position:top;
+  filter:sepia(.45) contrast(1.12) grayscale(.25);display:block;
+  border:1px solid rgba(201,155,82,.4);box-shadow:25px 25px 0 rgba(201,155,82,.08),0 30px 80px #000;
+  transform:rotate(-2deg);transition:transform .7s ease,filter .7s ease;cursor:zoom-in;background:#181512;
+}
+.portrait:hover{transform:rotate(0) scale(1.025);filter:sepia(.1) contrast(1.08) grayscale(.05)}
+.photo-label{position:absolute;bottom:-16px;left:24px;background:var(--paper);color:#1b1814;padding:10px 16px;font:600 11px Cinzel,serif;letter-spacing:.08em}
+
+.chapter-copy .number{font:600 12px Inter;color:var(--gold);letter-spacing:.2em}
+.chapter-copy h2{font:600 clamp(36px,5vw,66px)/1.05 Cinzel,serif;margin:16px 0;color:var(--paper)}
+.role{color:var(--gold);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.chapter-copy > p{color:#bcb3a4;line-height:1.85;font-size:15px;margin-top:25px;max-width:680px}
+
+.facts{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}
+.fact{border:1px solid rgba(255,255,255,.1);padding:9px 12px;font-size:11px;color:#aaa092;background:rgba(255,255,255,.025)}
+
+.personal-timeline{position:relative;margin-top:42px;max-width:680px;border-top:1px solid rgba(201,155,82,.16);padding-top:28px}
+.personal-timeline-heading{font-family:Cinzel,serif;text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--gold);margin-bottom:30px}
+.timeline-event{position:relative;display:grid;grid-template-columns:32px 1fr;gap:15px;padding-bottom:34px}
+.timeline-marker{position:relative;display:flex;justify-content:center}
+.timeline-marker::after{content:"";position:absolute;top:14px;bottom:-38px;width:1px;background:linear-gradient(var(--gold),rgba(201,155,82,.1));opacity:.55}
+.timeline-event:last-child .timeline-marker::after{display:none}
+.timeline-marker span{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(201,155,82,.12);margin-top:5px;position:relative;z-index:2}
+.timeline-event-content{padding:0 0 4px}
+.timeline-event-year{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600}
+.timeline-event-content h3{font-family:Cinzel,serif;color:var(--paper);font-size:20px;font-weight:600;margin:0}
+.timeline-event-content p{margin-top:8px;font-size:13px;line-height:1.7;color:#a9a092}
+.timeline-event-image{display:block;width:min(100%,420px);max-height:300px;object-fit:cover;margin-top:15px;border:1px solid rgba(201,155,82,.25);filter:sepia(.25) grayscale(.15);cursor:zoom-in;transition:.3s ease}
+.timeline-event-image:hover{filter:none;transform:scale(1.012)}
+
+.expand{margin-top:12px;border:0;border-bottom:1px solid var(--gold);color:var(--paper);background:none;padding:0 0 7px;cursor:pointer;font-size:12px;letter-spacing:.05em}
+.full-story{margin-top:20px!important;border-left:2px solid rgba(201,155,82,.45);padding:18px 22px;background:rgba(255,255,255,.02);white-space:pre-line}
+.full-story[hidden]{display:none}
+
+.reveal{opacity:0;transform:translateY(55px);transition:opacity .9s ease,transform .9s ease}
+.reveal.visible{opacity:1;transform:none}
+
+.end{min-height:75vh;display:grid;place-items:center;text-align:center;padding:100px 24px}
+.end h2{font:600 clamp(42px,7vw,90px) Cinzel,serif;color:var(--paper)}
+.end p{max-width:650px;color:#aaa092;line-height:1.8;margin:25px auto}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:100;display:none;place-items:center;padding:25px;backdrop-filter:blur(12px)}
+.modal.open{display:grid}
+.modal-box{max-width:1100px;width:100%;position:relative}
+.modal img{display:block;width:100%;max-height:82vh;object-fit:contain}
+.close{position:absolute;right:0;top:-42px;background:none;border:0;color:white;font-size:30px;cursor:pointer}
+
+@media(max-width:900px){
+  .chapter{padding:90px 22px}
+  .chapter-inner,.chapter:nth-child(even) .chapter-inner{grid-template-columns:1fr;direction:ltr}
+  .chapter:nth-child(even) .chapter-copy{direction:ltr}
+  .portrait-wrap{position:relative;top:auto}
+  .portrait{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Entrepreneurial History • 20 Journeys</div>
+    <h1>The Pioneers <span>Who Built Tomorrow</span></h1>
+    <p>An interactive exhibition of twenty Indian entrepreneurs and the paths they took from early life and education to business, challenges, breakthroughs, expansion and legacy.</p>
+    <div class="scroll-cue">Scroll to begin<i></i></div>
+  </div>
+</header>
+
+<nav class="timeline-nav" aria-label="Entrepreneur navigation">
+  <div class="timeline-nav-inner" id="timelineNav"></div>
+</nav>
+
+<main id="journey"></main>
+
+<section class="end">
+  <div>
+    <div class="eyebrow">The legacy continues</div>
+    <h2>20 Lives.<br>20 Different Journeys.</h2>
+    <p>Every successful business has a different beginning, timeline and turning point.</p>
+  </div>
+</section>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box">
+    <button class="close" id="closeModal" aria-label="Close image">×</button>
+    <img id="modalImage" alt="">
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA — EDIT ONLY THIS PART
+   Each person: name, birth, death, role, image, caption,
+   shortStory, longStory, facts[4], timeline [[year,title,text], ...]
+   Images go in the "images" folder next to this file.
+   Check dates/facts with your own sources before submitting.
+   ============================================================ */
+
+const P = (name,birth,death,role,image,caption,shortStory,longStory,facts,tl) => ({
+  name,birthYear:birth,deathYear:death,role,image,caption,shortStory,longStory,facts,
+  timeline: tl.map(t => ({year:t[0],title:t[1],description:t[2],image:t[3]||""}))
+});
+
+const entrepreneurs = [
+
+P("Jamsetji Nusserwanji Tata","1839","1904","Founder of the Tata Group","images/jamsetji-nusserwanji-tata.jpg","Father of Indian industry",
+"Jamsetji Tata turned a family trading firm into the base of modern Indian industry. He believed a nation could only be strong if it built its own factories, power and science.",
+`Jamsetji was born in Navsari, Gujarat, into a Parsi priestly family that had moved into trade. His father, Nusserwanji, was the first businessman in the family, and Jamsetji joined him in Bombay after studying at Elphinstone College.
+
+He began as a trader, then entered textiles with mills at Nagpur and Bombay. Unlike many mill owners, he used modern machinery and looked after worker welfare.
+
+His three great dreams were a steel plant, hydroelectric power and a science institute. He did not live to see them finished, but his plans led to Tata Steel, Tata Power and the Indian Institute of Science.`,
+["Born: Navsari, Gujarat","Industry: Textiles, steel, power","Venture: Empress Mills","Legacy: Tata Group, IISc"],
+[["1839","Birth","Born in Navsari, Gujarat, into a Parsi priestly family."],
+ ["1850s","Education and entry into trade","Studied at Elphinstone College, Bombay, and then joined his father's trading firm."],
+ ["1868","Own trading firm","Set up his own business in Bombay, laying the base of what became the Tata Group."],
+ ["1877","Empress Mills, Nagpur","Opened the Empress Mills, which used modern machinery and gave workers welfare benefits."],
+ ["1892","J.N. Tata Endowment","Started a scholarship fund so talented Indians could study higher subjects, including abroad."],
+ ["1903","Taj Mahal Hotel","Opened the Taj Mahal Palace hotel in Bombay, a world-class hotel owned by an Indian."],
+ ["1904","Death and legacy","Died in Germany. His steel, power and science plans were completed by his sons and successors."]]),
+
+P("Dwarkanath Tagore","1794","1846","Merchant, banker and early industrialist","images/dwarkanath-tagore.jpg","Pioneer of Indian enterprise in Bengal",
+"At a time when European agency houses ruled Calcutta commerce, Dwarkanath Tagore built banks, mines, shipping and insurance ventures as an Indian partner on equal terms.",
+`Dwarkanath was born in Calcutta into the Tagore family of Jorasanko. He was the father of Debendranath Tagore and grandfather of Rabindranath Tagore.
+
+He first worked in the legal and revenue field and became familiar with British administration and trade. This knowledge helped him enter private business.
+
+He founded the Union Bank in 1829 and partnered with the British businessman William Carr to form Carr, Tagore & Company. He also invested in coal, shipping and insurance. He should not be called a Swadeshi leader, because the movement came later. His importance is that he proved Indians could run large modern businesses.`,
+["Born: Calcutta","Industry: Banking, coal, shipping","Venture: Carr, Tagore & Co.","Legacy: Early Indian corporate leader"],
+[["1794","Birth","Born in Calcutta into the well-known Tagore family."],
+ ["1810s–20s","Early career","Worked in legal and revenue matters, learning how British commerce and administration worked."],
+ ["1829","Union Bank","Founded the Union Bank in Calcutta."],
+ ["1834","Carr, Tagore & Company","Formed a major partnership with British businessman William Carr, mixing Indian and European capital."],
+ ["1836","Coal and other ventures","Entered coal mining and expanded into shipping and insurance."],
+ ["1846","Death","Died in London after a visit to Britain; his business empire declined soon after."]]),
+
+P("Cowasji Nanabhoy Davar","1815","1873","Founder of Bombay's first successful cotton mill","images/cowasji-nanabhoy-davar.jpg","Pioneer of Bombay's textile industry",
+"Davar moved from trading and brokerage into manufacturing and built the first successful cotton mill in Bombay, starting the city's rise as a textile centre.",
+`Cowasji Nanabhoy Davar was born in Bombay in a Parsi family. Records of his schooling are limited, but his career shows a strong commercial training in trade and brokerage.
+
+India then exported raw cotton and imported finished cloth from Britain. Davar saw that Indian capital could make cloth in India itself.
+
+In 1854 he established the Bombay Spinning and Weaving Company at Tardeo. Production began in 1856. His success encouraged other Parsi and Gujarati investors to open mills, and Bombay became the centre of Indian cotton textiles.`,
+["Born: Bombay","Industry: Cotton textiles","Venture: Bombay Spinning & Weaving Co.","Legacy: Started Bombay's mill industry"],
+[["1815","Birth","Born in Bombay into a Parsi family."],
+ ["1830s–40s","Trade and brokerage","Built capital and business experience as a trader and broker."],
+ ["1854","Company founded","Set up the Bombay Spinning and Weaving Company at Tardeo."],
+ ["1856","Production begins","The mill started production and became the first successful cotton mill in Bombay."],
+ ["1860s","Others follow","Other Indian investors opened mills in Bombay, creating an industrial class."],
+ ["1873","Death","Died, leaving behind a model that shaped Bombay's economy."]]),
+
+P("Sir Dinshaw Maneckji Petit","1823","1901","Textile industrialist and philanthropist","images/sir-dinshaw-maneckji-petit.jpg","Bombay mill owner and benefactor",
+"Petit grew a trading fortune into a textile business and then gave generously to hospitals, education and community causes.",
+`Dinshaw Petit was born in Bombay into a Parsi family with a trading background. He built wealth in commerce and then invested it in industry.
+
+He set up the Manockji Petit Spinning and Weaving Mills in Bombay. The investment shifted Indian capital from trade into mechanised manufacturing and strengthened Bombay as India's textile centre.
+
+He was also known for charity. He supported Parsi community institutions, women's education, hospitals and an animal hospital, and received a baronetcy from the British Crown in 1890.`,
+["Born: Bombay","Industry: Cotton textiles","Venture: Manockji Petit Mills","Legacy: Industry plus philanthropy"],
+[["1823","Birth","Born in Bombay into a Parsi merchant family."],
+ ["1840s–50s","Commercial career","Built wealth through trade and business."],
+ ["1860s","Textile mills","Invested in modern spinning and weaving, including the Manockji Petit Mills."],
+ ["1870s–80s","Philanthropy","Gave to hospitals, women's education and community institutions."],
+ ["1890","Baronetcy","Received a baronetcy from the British Crown for his public service."],
+ ["1901","Death","Died, remembered as an industrialist and benefactor."]]),
+
+P("Ghanshyam Das (G.D.) Birla","1894","1983","Industrialist and nationalist","images/ghanshyam-das-birla.jpg","Industrialist close to Gandhi",
+"G.D. Birla took on British-dominated industries such as jute and built a large business group while supporting the freedom movement.",
+`G.D. Birla was born in Pilani, Rajasthan, into a Marwari business family. He had little formal schooling and joined the family trading business early, moving to Calcutta as a young man.
+
+In 1919 he established the Birla Jute Manufacturing Company, entering an industry that British firms had long controlled. His group later grew into textiles, cement, chemicals, banking and automobiles.
+
+He was a close associate of Mahatma Gandhi, helped found FICCI in 1927 and took part in the Bombay Plan of 1944. He also founded schools and colleges, including the institution that became BITS Pilani.`,
+["Born: Pilani, Rajasthan","Industry: Jute, textiles, cement","Venture: Birla Jute Mfg. Co.","Legacy: Birla Group, FICCI, BITS"],
+[["1894","Birth","Born in Pilani, Rajasthan, into a Marwari trading family."],
+ ["1900s–10s","Early business","Left formal schooling early and joined the family business in Calcutta."],
+ ["1919","Birla Jute Manufacturing","Started a jute mill in a field dominated by British firms."],
+ ["1927","FICCI","Helped establish the Federation of Indian Chambers of Commerce and Industry."],
+ ["1930s","Gandhi and Congress","Became a close associate and financial supporter of Gandhi and the national movement."],
+ ["1944","Bombay Plan","Joined leading industrialists in proposing an economic development plan for a free India."],
+ ["1983","Death","Died, leaving a diversified group and a network of educational institutions."]]),
+
+P("Jamnalal Bajaj","1889","1942","Industrialist and Gandhian","images/jamnalal-bajaj.jpg","Gandhi's 'fifth son'",
+"Jamnalal Bajaj used his wealth as a trust for society. He gave up British titles, promoted khadi and stood with Gandhi in the freedom struggle.",
+`Jamnalal Bajaj was born in a modest family in Sikar, Rajasthan, and was adopted by a wealthy trader, Seth Bachhraj, of Wardha. He grew up in the family's commercial world.
+
+After meeting Gandhi in 1915 he turned towards public life. Gandhi regarded him as a fifth son. Bajaj returned his British title, joined the Non-Cooperation movement and the Salt Satyagraha, and served as treasurer of the Indian National Congress.
+
+His business included trading and sugar, with Hindusthan Sugar Mills incorporated in 1931. He supported khadi, village industries, women's education and campaigns against untouchability. He lived by the idea of trusteeship: wealth is held for the benefit of society.`,
+["Born: Sikar, Rajasthan","Industry: Trading, sugar","Venture: Hindusthan Sugar Mills","Legacy: Bajaj Group, trusteeship"],
+[["1889","Birth","Born in Sikar, Rajasthan; later adopted into a wealthy family of Wardha."],
+ ["1915","Meets Gandhi","Met Gandhi and began moving from business towards public service."],
+ ["1920–21","Non-Cooperation","Joined the movement and gave up the titles given by the colonial government."],
+ ["1930","Salt Satyagraha","Took part in the civil disobedience movement."],
+ ["1931","Hindusthan Sugar Mills","Sugar mills were incorporated, linking business with the aim of self-reliance."],
+ ["1942","Death","Died in Wardha, remembered for social reform and trusteeship."]]),
+
+P("Walchand Hirachand","1882","1953","Industrialist in strategic industries","images/walchand-hirachand.jpg","Builder of ships, aircraft and cars",
+"Walchand Hirachand entered shipping, shipbuilding, aircraft and automobiles at a time when India depended on foreign companies for all of them.",
+`Walchand Hirachand was born in Solapur and educated in Bombay. He began as a railway and construction contractor and gained a reputation for large engineering projects.
+
+He helped establish the Scindia Steam Navigation Company in 1919. Its ship SS Loyalty sailed from Bombay to Britain on 5 April 1919, challenging British control of Indian sea trade.
+
+He later founded Hindustan Aircraft in 1940 at Bangalore and Premier Automobiles in the 1940s. He also built a shipyard at Visakhapatnam. Although some ventures faced heavy obstacles, they trained Indian engineers and showed that India could aim at heavy industry.`,
+["Born: Solapur, Maharashtra","Industry: Shipping, aircraft, cars","Venture: Scindia Steam Navigation","Legacy: Hindustan Aircraft, Walchandnagar"],
+[["1882","Birth","Born in Solapur into a business family."],
+ ["1900s","Contractor","Started in construction and railway contracting, building experience in large projects."],
+ ["1919","Scindia Steam Navigation","Helped launch Indian-owned shipping; SS Loyalty sailed to Britain on 5 April."],
+ ["1940","Hindustan Aircraft","Founded the company at Bangalore, a step towards Indian aircraft manufacturing."],
+ ["1941","Shipyard at Visakhapatnam","Began shipbuilding facilities on the east coast."],
+ ["1940s","Automobiles","Entered car manufacturing through Premier Automobiles."],
+ ["1953","Death","Died, remembered as a founder of India's strategic industries."]]),
+
+P("V.O. Chidambaram Pillai","1872","1936","Lawyer, entrepreneur and freedom fighter","images/v-o-chidambaram-pillai.jpg","The man who sailed against the empire",
+"V.O.C. started an Indian shipping company to compete with British ships. His business was itself a form of protest.",
+`Valliappan Olaganathan Chidambaram Pillai was born in Ottapidaram, in present-day Tamil Nadu. He trained as a lawyer and practised as a pleader before entering public life.
+
+In 1906 he founded the Swadeshi Steam Navigation Company, which ran ships between Tuticorin and Colombo and challenged the British India Steam Navigation Company. The British firm cut fares sharply and colonial pressure made things harder for him.
+
+He was arrested in 1908 for his role in the nationalist movement and sentenced to a long term. The company was liquidated in 1911. His enterprise failed commercially, but it became a lasting symbol of Swadeshi resistance.`,
+["Born: Ottapidaram, Tamil Nadu","Industry: Shipping","Venture: Swadeshi Steam Navigation Co.","Legacy: Symbol of Swadeshi"],
+[["1872","Birth","Born in Ottapidaram in present-day Tamil Nadu."],
+ ["1890s","Law training","Qualified as a pleader and practised law."],
+ ["1906","Swadeshi Steam Navigation","Founded the company to compete with the British shipping line on the Tuticorin–Colombo route."],
+ ["1908","Arrest","Arrested for his nationalist activities and sentenced."],
+ ["1911","Company liquidated","Under heavy competition and pressure, the company was wound up."],
+ ["1936","Death","Died, now honoured as a hero of the Swadeshi movement."]]),
+
+P("Narottam Morarjee","1877","1929","Shipping and textile entrepreneur","images/narottam-morarjee.jpg","Co-founder of Scindia Steam Navigation",
+"Narottam Morarjee came from a mill-owning family and became a leading figure in Indian-owned shipping.",
+`Narottam Morarjee was born in Bombay into a business family linked with the Goculdas textile interests. He first managed textile mills such as the Morarjee Goculdas Mill and the Solapur Mill.
+
+His main achievement was in shipping. With Walchand Hirachand and others he established the Scindia Steam Navigation Company in 1919. On 5 April 1919 its ship SS Loyalty sailed from Bombay to Britain.
+
+He had contact with national leaders such as Mahatma Gandhi and Dadabhai Naoroji. His work showed that Indian capital and management could compete in international sea trade.`,
+["Born: Bombay","Industry: Shipping, textiles","Venture: Scindia Steam Navigation","Legacy: Indian shipping pioneer"],
+[["1877","Birth","Born in Bombay into a business family."],
+ ["1890s–1900s","Mill management","Managed textile mills including Morarjee Goculdas and Solapur Mill."],
+ ["1919","Scindia Steam Navigation","Co-founded the company that challenged British shipping lines."],
+ ["1919","SS Loyalty","The first voyage from Bombay to Britain, on 5 April, was a landmark for Indian shipping."],
+ ["1920s","Expansion","Continued to grow Indian shipping and worked with other nationalist businessmen."],
+ ["1929","Death","Died, remembered as a founder of Indian-owned maritime trade."]]),
+
+P("Lala Shri Ram","1884","1963","Industrialist and educationist","images/sir-shri-ram-lala-shri-ram.jpg","Leader of Delhi Cloth & General Mills",
+"Shri Ram built Delhi Cloth & General Mills into a major group and believed India also needed trained managers and accountants.",
+`Lala Shri Ram was born in Delhi into a business family. He joined Delhi Cloth & General Mills (DCM) as a young man and helped turn it into one of northern India's main industrial groups.
+
+The group expanded from textiles into sugar, chemicals and other manufacturing. Shri Ram was knighted in 1941 and was known as Sir Shri Ram.
+
+He also invested in education. Through the Commercial Education Trust he supported commercial education, and the college that grew from it became Shri Ram College of Commerce (SRCC) in Delhi.`,
+["Born: Delhi","Industry: Textiles, sugar, chemicals","Venture: Delhi Cloth & General Mills","Legacy: DCM, SRCC"],
+[["1884","Birth","Born in Delhi into a business family."],
+ ["1900s","Joins DCM","Entered Delhi Cloth & General Mills and began to take on leadership."],
+ ["1920s–30s","Group expansion","Helped DCM grow into a diversified industrial group."],
+ ["1926","Shri Ram College of Commerce","The commercial college set up under his trust opened in Delhi."],
+ ["1941","Knighthood","Received a knighthood for his contribution to industry."],
+ ["1963","Death","Died, leaving both an industrial group and a leading commerce college."]]),
+
+P("T.V. Sundram Iyengar","1877","1955","Founder of the TVS Group","images/t-v-sundram-iyengar.jpg","Pioneer of motor transport in South India",
+"T.V. Sundram Iyengar started a bus service in Madurai and built it into a business around vehicles, parts and service.",
+`T.V. Sundram Iyengar was born in Thirukkurungudi in southern Tamil Nadu. He worked in Madurai before starting his own business.
+
+In 1911 he founded T.V. Sundram Iyengar & Sons and began running a bus service, one of the early organised road transport operations in the Madras Presidency.
+
+The business grew into vehicle sales, servicing and spare parts. During shortages he also found local solutions such as rubber retreading. Reliability, service and discipline were the group's core values, and it later grew into TVS Motor and other automotive companies.`,
+["Born: Thirukkurungudi, Tamil Nadu","Industry: Transport, automobiles","Venture: T.V. Sundram Iyengar & Sons","Legacy: TVS Group"],
+[["1877","Birth","Born in Thirukkurungudi, Tamil Nadu."],
+ ["1900s","Early career","Worked in Madurai and gained business experience."],
+ ["1911","First business","Founded T.V. Sundram Iyengar & Sons and started a bus service."],
+ ["1920s–30s","Services expand","Moved into vehicle sales, servicing and spare parts."],
+ ["1940s","Wartime ingenuity","Used local solutions such as rubber retreading during scarcity."],
+ ["1955","Death","Died, leaving a group that later became a major automotive manufacturer."]]),
+
+P("Laxmanrao Kirloskar","1869","1956","Engineer and founder of the Kirloskar Group","images/laxmanrao-kirloskar.jpg","India's pioneer of farm machinery",
+"Laxmanrao Kirloskar began with a bicycle shop and built an engineering group that made ploughs, engines and pumps in India.",
+`Laxmanrao Kirloskar was born in Gurlhosur, Karnataka. He studied drawing and design at the J.J. School of Art in Bombay and later taught mechanical drawing.
+
+In 1888 he opened a bicycle repair shop in Belgaum. He soon moved to making machinery for Indian farmers. In 1903 he produced an Indian iron plough, and his firm also made chaff cutters.
+
+Kirloskar Brothers grew into engines, pumps and machine tools. He also built the industrial town of Kirloskarwadi. His work showed that Indian engineers could design equipment suited to Indian conditions.`,
+["Born: Gurlhosur, Karnataka","Industry: Agricultural machinery","Venture: Kirloskar Brothers","Legacy: Kirloskar Group"],
+[["1869","Birth","Born in Gurlhosur, Karnataka."],
+ ["1880s","Education and teaching","Studied at J.J. School of Art, Bombay, and taught mechanical drawing."],
+ ["1888","First business","Opened a bicycle repair shop in Belgaum."],
+ ["1901","Kirloskar Brothers","Started the engineering firm that became the Kirloskar Group."],
+ ["1903","Iron plough","Manufactured an Indian iron plough, reducing dependence on imports."],
+ ["1910","Kirloskarwadi","Developed an industrial settlement around his factory."],
+ ["1956","Death","Died, leaving a strong tradition of Indian engineering."]]),
+
+P("Ardeshir Burjorji Godrej","1868","1936","Founder of Godrej","images/ardeshir-burjorji-godrej.jpg","Maker of Swadeshi locks and soap",
+"Ardeshir Godrej made high-quality locks and soaps in India and proved that Swadeshi goods could win on quality.",
+`Ardeshir Godrej was born in Bombay into a Parsi family. He studied law but left the profession, then worked in a chemist's shop and tried several small businesses.
+
+In 1897 he began manufacturing locks in Bombay. His locks were reliable and suited Indian conditions, and they competed successfully with imports.
+
+He later turned to soap and developed a soap made from vegetable oils instead of animal fat. He also supported the national movement and contributed to the Tilak Swaraj Fund. The Godrej Group still carries his name.`,
+["Born: Bombay","Industry: Locks, soap, consumer goods","Venture: Godrej (locks, 1897)","Legacy: Godrej Group"],
+[["1868","Birth","Born in Bombay into a Parsi family."],
+ ["1890s","Law and early work","Studied law, then worked in a chemist's shop before trying small businesses."],
+ ["1897","Lock manufacturing","Started making locks in Bombay."],
+ ["1900s–10s","Safes and security","Expanded into security equipment as the business grew."],
+ ["1918","Vegetable-oil soap","Developed soap from vegetable oil, a strongly Swadeshi product."],
+ ["1936","Death","Died, leaving a company that grew into a large Indian group."]]),
+
+P("Acharya Prafulla Chandra Ray","1861","1944","Chemist and entrepreneur","images/acharya-prafulla-chandra-ray.jpg","Scientist who founded an industry",
+"P.C. Ray was a leading chemist who built India's first chemical and pharmaceutical company so that science could serve the nation's economy.",
+`Prafulla Chandra Ray was born in Raruli-Katipara in the Jessore district of Bengal, now in Bangladesh. He studied at Presidency College, Calcutta, and then at the University of Edinburgh, where he earned a doctorate in 1887.
+
+He returned to India and taught at Presidency College. He wrote about the history of chemistry in India and trained many young scientists.
+
+With very limited funds he began making chemicals and medicines at home, and in 1901 Bengal Chemical and Pharmaceutical Works Ltd. was set up. He lived simply and gave away much of his salary to support research and students.`,
+["Born: Jessore, Bengal","Industry: Chemicals, pharmaceuticals","Venture: Bengal Chemical","Legacy: Indian chemical industry"],
+[["1861","Birth","Born in Raruli-Katipara, in the Jessore district of Bengal."],
+ ["1880s","Education","Studied at Presidency College, Calcutta, and earned a doctorate at Edinburgh in 1887."],
+ ["1889","Teaching career","Joined Presidency College, Calcutta, as a teacher and researcher."],
+ ["1892","First chemical venture","Began making chemicals and medicines with a very small budget."],
+ ["1901","Bengal Chemical","Bengal Chemical and Pharmaceutical Works Ltd. was established."],
+ ["1921","Gives away salary","On retirement, donated his university salary to support chemistry and research."],
+ ["1944","Death","Died, honoured as the father of Indian chemistry and pharmacy."]]),
+
+P("Kasturbhai Lalbhai","1894","1980","Textile industrialist and institution-builder","images/kasturbhai-lalbhai.jpg","Ahmedabad's leading mill owner",
+"Kasturbhai Lalbhai expanded the family's textile business and used his wealth to build schools, research centres and institutions in Ahmedabad.",
+`Kasturbhai Lalbhai was born in Ahmedabad into a leading Jain business family known for its public service. He joined the family's textile business young and learned the work of the mills.
+
+He helped build Arvind Mills into a major textile firm, and Ahmedabad grew as a centre of Indian-owned cotton manufacturing.
+
+He is equally remembered for institution-building. He supported the Ahmedabad Education Society and worked with scientists and educators to create institutions of higher learning and research in the city.`,
+["Born: Ahmedabad","Industry: Cotton textiles","Venture: Arvind Mills","Legacy: Institutions of Ahmedabad"],
+[["1894","Birth","Born in Ahmedabad into a leading business family."],
+ ["1910s","Joins family business","Entered the family's textile business and learned mill management."],
+ ["1931","Arvind Mills","Became associated with Arvind Mills and its growth."],
+ ["1935","Ahmedabad Education Society","Supported the founding of educational institutions in the city."],
+ ["1950s–60s","Research and management","Backed scientific and management institutions in Ahmedabad."],
+ ["1980","Death","Died, remembered for linking industry with education."]]),
+
+P("Ambalal Sarabhai","1890","1967","Textile industrialist and philanthropist","images/ambalal-sarabhai.jpg","Chairman of Calico Mills",
+"Ambalal Sarabhai led Calico Mills, supported Gandhi, and created a family tradition of science and culture.",
+`Ambalal Sarabhai was born in Ahmedabad into a leading business family. He took over the family's Calico Mills and built it into a modern textile firm, with integrated fine-count spinning, weaving and processing by 1922.
+
+He supported Mahatma Gandhi and backed the ashram at a difficult time, linking Ahmedabad's industrial community with the national movement.
+
+His family became known for science and the arts. His son, Vikram Sarabhai, later became the founding figure of India's space programme. Ambalal's career showed how textile wealth could build social and cultural institutions.`,
+["Born: Ahmedabad","Industry: Textiles, pharmaceuticals","Venture: Calico Mills","Legacy: Sarabhai family institutions"],
+[["1890","Birth","Born in Ahmedabad into a prominent business family."],
+ ["1910s","Takes charge","Became chairman and promoter of Calico Mills and developed the family's interests."],
+ ["1915","Gandhi in Ahmedabad","Supported Gandhi and his ashram after Gandhi settled in Ahmedabad."],
+ ["1922","Calico modernised","The mill installed integrated facilities for fine-count spinning, weaving and processing."],
+ ["1920s–30s","Diversification","The family expanded into other manufacturing, including pharmaceuticals."],
+ ["1967","Death","Died, leaving a family known for science, education and culture."]]),
+
+P("Lala Juggilal Singhania","1847","1922","Merchant and founder of the J.K. Group","images/lala-juggilal-singhania.jpg","Foundation of the J.K. Organisation",
+"Lala Juggilal Singhania laid the commercial base of the J.K. Organisation, which his sons and grandsons built into a large industrial group.",
+`Lala Juggilal Singhania belonged to a Marwari trading family, and his business centred on Kanpur, then one of northern India's main industrial cities.
+
+The name J.K. comes from Juggilal and his son Kamlapat. The family moved from traditional trade and finance towards manufacturing, a change seen across many Indian merchant communities during colonial rule.
+
+J.K. Cotton Spinning & Weaving Mills was established in 1921. The later group grew into cement, paper, tyres and other industries. Juggilal's main role was building the capital and commercial foundation.`,
+["Born: Marwari trading family","Industry: Trading, textiles","Venture: J.K. Organisation","Legacy: J.K. Group"],
+[["1847","Birth","Born into a Marwari trading family."],
+ ["1870s–80s","Trade in Kanpur","Built a trading and finance business centred on Kanpur."],
+ ["1900s","Next generation joins","His son Kamlapat joined the business; the J.K. name comes from their names."],
+ ["1921","J.K. Cotton Mills","J.K. Cotton Spinning & Weaving Mills was established to make cotton yarn."],
+ ["1922","Death","Died; his family continued to expand into new industries."],
+ ["Later","Diversified group","The group moved into cement, paper, tyres and other manufacturing."]]),
+
+P("Gujarmal Modi","1902","1976","Industrialist and founder of Modinagar","images/gujarmal-modi.png","Builder of an industrial township",
+"Gujarmal Modi started with a sugar mill and built a whole industrial town, Modinagar, with factories, schools and hospitals.",
+`Gujarmal Modi came from a business background and entered industry in the early 1930s. His first major venture was a sugar mill, and Modi Sugar Mills began operating in the area that later became Modinagar.
+
+From sugar he moved into soap, paints, vanaspati, industrial gases, steel and engineering goods. His factories created thousands of jobs.
+
+He also built the infrastructure around his industries, including housing, schools and hospitals. Modinagar became a model of an industrial township, and he supported education through funding schools and colleges.`,
+["Industry: Sugar, chemicals, steel","Venture: Modi Sugar Mills","Place: Modinagar, Uttar Pradesh","Legacy: Modi Industries"],
+[["1902","Birth","Born into a business family."],
+ ["1930s","Sugar mill","Established Modi Sugar Mills, the start of his industrial career."],
+ ["1930s–40s","Modinagar grows","A small settlement grew into a planned industrial township."],
+ ["1940s–50s","Diversification","Expanded into soap, paints, vanaspati, gases, steel and engineering products."],
+ ["1950s–60s","Social infrastructure","Built housing, schools and hospitals around his factories."],
+ ["1976","Death","Died, leaving behind Modinagar and a large industrial group."]]),
+
+P("Bhai Ram Singh","1858","1916","Architect, designer and teacher","images/bhai-ram-singh.jpg","Architect of colonial Punjab",
+"Bhai Ram Singh is best known as an architect and designer, not an industrialist. Confirm with your teacher whether he is the person intended for this list.",
+`NOTE FOR SUBMISSION: Bhai Ram Singh (1858–1916) was a leading architect and designer of colonial Punjab, not a major banker or industrialist. Ask your teacher whether he is the right person for this exhibition, or whether another name was intended. If a different name is given, replace this entry.
+
+Bhai Ram Singh was born in Rasulpur in the Punjab into a family of carpenters. He studied at the Mayo School of Art in Lahore under John Lockwood Kipling and became an important teacher there.
+
+He designed major buildings in the Indo-Saracenic style, including Aitchison College in Lahore and Khalsa College in Amritsar. In 1890–91 he designed the Durbar Hall at Osborne House on the Isle of Wight. His work promoted Indian craftsmanship in design and architectural education.`,
+["Born: Rasulpur, Punjab","Field: Architecture and design","Work: Aitchison, Khalsa College","Status: Verify with teacher"],
+[["1858","Birth","Born in Rasulpur, Punjab, into a family of carpenters."],
+ ["1870s","Art education","Studied at the Mayo School of Art, Lahore, under J.L. Kipling."],
+ ["1880s","Teaching and design","Became a teacher and designer at the school."],
+ ["1890","Durbar Hall","Designed the Durbar Hall at Osborne House, Isle of Wight."],
+ ["1890s–1900s","Major buildings","Designed buildings such as Aitchison College and Khalsa College, Amritsar."],
+ ["1916","Death","Died, leaving a legacy in Indian architecture and craft education."]]),
+
+P("Ramkrishna Dalmia","1893","1978","Industrialist and founder of the Dalmia Group","images/ramkrishna-dalmia.png","Builder of Dalmianagar",
+"Ramkrishna Dalmia started in trading and speculation and built a very diverse group across sugar, cement, paper, banking and media.",
+`Ramkrishna Dalmia was born in Chirawa in Rajasthan into a Marwari family. He started in trade and commodity dealing and grew quickly in business.
+
+In the 1930s he built a group with sugar, cement, chemicals and paper at the centre. Dalmianagar in Bihar became a large integrated industrial centre. The group also entered banking and insurance through Bharat Bank and acquired media interests.
+
+His career also had controversy. After independence he faced inquiries and legal action over business practices. Even so, his rise showed how fast Indian capital could expand in the last decades of colonial rule.`,
+["Born: Chirawa, Rajasthan","Industry: Sugar, cement, paper","Venture: Dalmia Group","Place: Dalmianagar, Bihar"],
+[["1893","Birth","Born in Chirawa, Rajasthan, into a Marwari family."],
+ ["1910s–20s","Trading career","Started in trade and commodity dealing."],
+ ["1930s","Industrial expansion","Built sugar, cement, chemicals and paper businesses."],
+ ["1930s","Dalmianagar","Developed an integrated industrial centre in Bihar."],
+ ["1940s","Finance and media","Entered banking, insurance and newspaper ownership."],
+ ["1950s–60s","Controversy","Faced official inquiries and legal action after independence."],
+ ["1978","Death","Died, leaving a large and complicated industrial legacy."]])
+
+];
+
+/* ============================================================
+   WEBSITE ENGINE — you normally do not need to edit below
+   ============================================================ */
+
+const journey = document.getElementById("journey");
+const timelineNav = document.getElementById("timelineNav");
+
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+}[c]));
+
+const lifespan = p => (p.birthYear && p.deathYear) ? `${p.birthYear}–${p.deathYear}` : (p.birthYear || "");
+
+entrepreneurs.forEach((p,i)=>{
+  const section = document.createElement("section");
+  section.className = "chapter";
+  section.id = `person-${i}`;
+  section.dataset.year = p.birthYear || "";
+
+  const events = (p.timeline || []).map(ev => `
+    <div class="timeline-event">
+      <div class="timeline-marker"><span></span></div>
+      <div class="timeline-event-content">
+        <div class="timeline-event-year">${esc(ev.year)}</div>
+        <h3>${esc(ev.title)}</h3>
+        <p>${esc(ev.description)}</p>
+        ${ev.image ? `<img class="timeline-event-image zoomable" src="${esc(ev.image)}" data-full="${esc(ev.image)}" data-name="${esc(p.name)} — ${esc(ev.title)}" alt="${esc(ev.title)} — ${esc(p.name)}">` : ""}
+      </div>
+    </div>`).join("");
+
+  section.innerHTML = `
+    <div class="chapter-inner">
+      <div class="portrait-wrap reveal">
+        <img class="portrait zoomable" src="${esc(p.image)}" data-full="${esc(p.image)}" data-name="${esc(p.name)}"
+             alt="Portrait of ${esc(p.name)}" onerror="this.style.opacity='.18'">
+        <div class="photo-label">${esc(p.caption)}</div>
+      </div>
+
+      <article class="chapter-copy reveal">
+        <div class="number">${String(i+1).padStart(2,"0")} / ${entrepreneurs.length}</div>
+        <h2>${esc(p.name)}</h2>
+        <div class="role">${esc(p.role)}${lifespan(p) ? ` · ${esc(lifespan(p))}` : ""}</div>
+        <p>${esc(p.shortStory)}</p>
+        <div class="facts">${(p.facts || []).map(f=>`<span class="fact">${esc(f)}</span>`).join("")}</div>
+        <div class="personal-timeline">
+          <div class="personal-timeline-heading">Life &amp; Business Journey</div>
+          ${events || `<p>No timeline events added yet.</p>`}
+        </div>
+        <button class="expand" type="button" data-story="${i}">READ FULL STORY →</button>
+        <p class="full-story" hidden>${esc(p.longStory)}</p>
+      </article>
+    </div>`;
+
+  journey.appendChild(section);
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.dataset.target = section.id;
+  button.innerHTML = `<span class="dot"></span>${String(i+1).padStart(2,"0")} ${esc(p.name)}`;
+  timelineNav.appendChild(button);
+});
+
+const sections = [...document.querySelectorAll(".chapter")];
+const buttons = [...document.querySelectorAll(".timeline-nav button")];
+const navBar = document.querySelector(".timeline-nav");
+
+const revealObserver = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("visible"); });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>revealObserver.observe(el));
+
+/* FIX: the old scrollIntoView() also scrolled the page vertically and fought with the user's scrolling.
+   Now only the nav bar scrolls sideways. */
+const sectionObserver = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    const i = sections.indexOf(entry.target);
+    buttons.forEach((b,n)=>b.classList.toggle("active",n===i));
+    const b = buttons[i];
+    if(b) navBar.scrollTo({left:b.offsetLeft - navBar.clientWidth/2 + b.clientWidth/2, behavior:"smooth"});
+  });
+},{rootMargin:"-32% 0px -55% 0px"});
+sections.forEach(s=>sectionObserver.observe(s));
+
+timelineNav.addEventListener("click",e=>{
+  const b = e.target.closest("button[data-target]");
+  if(b) document.getElementById(b.dataset.target)?.scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+document.addEventListener("click",e=>{
+  const button = e.target.closest("[data-story]");
+  if(!button) return;
+  const story = button.parentElement.querySelector(".full-story");
+  const closed = story.hasAttribute("hidden");
+  story.toggleAttribute("hidden");
+  button.textContent = closed ? "CLOSE FULL STORY ↑" : "READ FULL STORY →";
+});
+
+const modal = document.getElementById("modal");
+const modalImage = document.getElementById("modalImage");
+
+document.addEventListener("click",e=>{
+  const img = e.target.closest(".zoomable");
+  if(!img) return;
+  modalImage.src = img.dataset.full || img.src;
+  modalImage.alt = img.dataset.name || img.alt || "Expanded image";
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+});
+
+/* FIX: setting src="" made the browser reload the page itself; removeAttribute avoids that. */
+function closeImage(){
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  modalImage.removeAttribute("src");
+}
+document.getElementById("closeModal").addEventListener("click",closeImage);
+modal.addEventListener("click",e=>{ if(e.target===modal) closeImage(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeImage(); });
+</script>
+</body>
+</html>
